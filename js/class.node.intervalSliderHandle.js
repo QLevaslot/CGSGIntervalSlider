@@ -6,12 +6,12 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var CGSGNodeIntervalHandle = CGSGNode.extend({
+var CGSGNodeIntervalSliderHandle = CGSGNode.extend({
 
     initialize: function (parentWidth, parentHeight, handleWidth, value, min, max) {
         this._super((((value - min) /(max - min)) * parentWidth - handleWidth / 2) , 0);
 
-        this.classType = "CGSGNodeIntervalHandle";
+        this.classType = "CGSGNodeIntervalSliderHandle";
 
         this.resizeTo(handleWidth, parentHeight);
         this.color = "#cdcdcd";
@@ -24,6 +24,26 @@ var CGSGNodeIntervalHandle = CGSGNode.extend({
         this.selectionHandleColor = 'rgba(0,0,0,0)';
 
         this.value = value;
+    },
+
+    /**
+     * Restrain movement to x axis
+     *
+     * @method onSlide
+     * @protected
+     */
+    onSlide : function() {
+
+        var x = this.position.x;
+
+        if (x < -this.getWidth()/2) {
+            x = -this.getWidth()/2;
+        } else if (x > this._parentNode.getWidth() - this.getWidth()/2) {
+            x = this._parentNode.getWidth() - this.getWidth()/2;
+        }
+        this.translateTo(x, 0);
+        var range = this._parentNode.max - this._parentNode.min;
+        this.value = (x+ this.getWidth()/2) * (this._parentNode.max - this._parentNode.min)/(this._parentNode.getWidth())+this._parentNode.min;
     },
 
     /**
