@@ -9,7 +9,7 @@
 var CGSGNodeIntervalSliderHandle = CGSGNode.extend({
 
     initialize: function (parentWidth, parentHeight, handleWidth, value, min, max) {
-        this._super((((value - min) /(max - min)) * parentWidth - handleWidth / 2) , 0);
+        this._super((((value - min) /(max - min)) * (parentWidth - handleWidth)) , 0);
 
         this.classType = "CGSGNodeIntervalSliderHandle";
 
@@ -36,18 +36,19 @@ var CGSGNodeIntervalSliderHandle = CGSGNode.extend({
 
         var x = this.position.x;
 
-        if (x < -this.getWidth()/2) {
-            x = -this.getWidth()/2;
-        } else if (x > this._parentNode.getWidth() - this.getWidth()/2) {
-            x = this._parentNode.getWidth() - this.getWidth()/2;
-        }
-        this.translateTo(x, 0);
-        var range = this._parentNode.max - this._parentNode.min;
-        this.value = (x+ this.getWidth()/2) * (this._parentNode.max - this._parentNode.min)/(this._parentNode.getWidth())+this._parentNode.min;
+        var intendedValue = (x) * (this._parentNode.max - this._parentNode.min)/(this._parentNode.getWidth()-this.getWidth())+this._parentNode.min;
+        this.setValue(intendedValue);
+
+    },
+
+    setValue: function (value) {
+        this.value = this._parentNode.moveHandle(this, value);
+//        alert((((this.value - this._parentNode.min) /(this._parentNode.max - this._parentNode.min)) * this._parentNode.getWidth() - this.getWidth() / 2));
+        this.translateTo((((this.value - this._parentNode.min) /(this._parentNode.max - this._parentNode.min)) * (this._parentNode.getWidth() - this.getWidth())) , 0);
     },
 
     /**
-     * Default handle rendering (A rounded square with some "volume" effect)
+     * Default handle rendering
      *
      * @method render
      * @protected
