@@ -110,10 +110,10 @@ var CGSGNodeIntervalSlider = CGSGNode.extend({
     setHandles: function () {
         this.removeAll();
         if (!cgsgExist(this.handleMin)) {
-            this.handleMin = new CGSGNodeIntervalSliderHandle(this.getWidth(), this.getHeight(), 3, this.minValue, this.min, this.max)
+            this.handleMin = new CGSGNodeIntervalSliderHandle(this.getWidth(), this.getHeight(), 5, this.minValue, this.min, this.max)
         }
         if (!cgsgExist(this.handleMax)) {
-            this.handleMax = new CGSGNodeIntervalSliderHandle(this.getWidth(), this.getHeight(), 3, this.maxValue, this.min, this.max);
+            this.handleMax = new CGSGNodeIntervalSliderHandle(this.getWidth(), this.getHeight(), 5, this.maxValue, this.min, this.max);
         }
         this.addChild(this.handleMin);
         this.addChild(this.handleMax);

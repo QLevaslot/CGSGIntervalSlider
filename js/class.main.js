@@ -36,8 +36,8 @@ var CGMain = CGSGView.extend(
             this.rootNode.addChild(this.textNodeMax, null);
 
             //intervalSlider
-            this.intervalSlider = new CGSGNodeIntervalSlider(300, 300, 100, 50, 0, 10);
-            this.intervalSlider.setMinValue(9);
+            this.intervalSlider = new CGSGNodeIntervalSlider(50, 50, 100, 50, 0, 10);
+            this.intervalSlider.setMinValue(4);
             this.intervalSlider.setMaxValue(9);
 
 
